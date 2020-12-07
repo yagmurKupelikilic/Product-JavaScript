@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/glider.min.css" type="text/css">
+    <link rel="stylesheet" href="css/glide.theme.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'>
+    <title>GLIDE</title>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <!-- <script>
+        $.getJSON('data.json', function (data) {
+            $.getJSON('data.json', function (data) {
+                        $.each(data.products, function (i, p) {}}})
+    </script> -->
+
+
+</head>
+
+<body>
+    <h3>Unsere Empfahlungen für Sie</h3>
+
+    <section class="container">
+        <div class="glider" style="width:100%; text-align:center" id="glider">
+            <script>
+                $(function () {
+                    var products = []
+                    $.getJSON('data.json', function (data) {
+                        $.each(data.products, function (i, p) {
+                            var discount = Math.round(((p.oldPrice - p.price)/p.oldPrice)*100);
+                            var discounthtml =  "<p id='discount'>-"+ (discount >=0 ? discount : "") +"%</p>";
+                            var isNew = p.params.isNew == "" ? false : true;
+                            var isNewhtml = "<p id='isNew'>NEU</p>";
+                            var card = "<div class='card'>" +"<img src="+p.image+"><div class='widgets'>" + (discount >= 0 ? discounthtml : "") + (isNew ? isNewhtml : "")
+                            +"</div><p id='name'>"+p.name+"</p></br><p id='origin'>"+ (p.params.land ?  p.params.land : " ") + (p.params.region ? " | " + p.params.region : " ") +   (p.params.art ? " | " + p.params.art : " ") 
+                            +"</p><div id='prices'><span id='price'>"+ p.priceText + "* " + (p.oldPrice ? "<del id='oldPrice'>" + p.oldPriceText + "*</del>" : "" ) + "</span><p id='baseprice'>"
+                            + p.params.basePrice + "</p></div></div>"
+                            $(card).appendTo(".glider");
+                        });
+                    });
+                });
+            </script>
+       
+
+        </div>
+        <div class="glide__arrows" data-glide-el="controls">
+            <button class="glider-next"><i class="fas fa-chevron-circle-right"></i></button>
+            <button class="glider-prev"><i class="fas fa-chevron-circle-left"></i></button>
+        </div>
+    </section>
+
+
+    <script src="js/glider.min.js"></script>
+    <!-- <script src="js/glide.js"></script> -->
+    <script>
+        new Glide('.glider').mount()
+    </script>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+
+
+</html>
